@@ -81,7 +81,7 @@ jobs:
       - name: Run docker compose
         run: |
           cd espresso-dev-node
-          docker compose up espresso-dev-node sequencer-db-0 devnet -d
+          docker compose up espresso-dev-node db devnet -d
 
       - name: Wait for a while, log and shutdown
         run: |
