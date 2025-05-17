@@ -32,11 +32,19 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Set lowercase owner
+        id: repository_owner
+        uses: actions/github-script@v7
+        with:
+          result-encoding: string
+          script: |
+            return '${{ github.repository_owner }}'.toLowerCase();
+
       - name: Extract metadata (tags, labels) for Docker
         id: devnet_meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/${{ github.repository_owner.toLower() }}/cartesi-devnet
+          images: ghcr.io/${{ steps.repository_owner.outputs.result }}/cartesi-devnet
 
       - name: Setup espresso date and hash tag
         id: vars
@@ -52,6 +60,6 @@ jobs:
           build-args: |
             TARGETARCH=amd64
           tags: |
-            ghcr.io/${{ github.repository_owner.toLower() }}/cartesi-devnet:latest
-            ghcr.io/${{ github.repository_owner.toLower() }}/cartesi-devnet:${{ steps.vars.outputs.date_tag }}
+            ghcr.io/${{ steps.repository_owner.outputs.result }}/cartesi-devnet:latest
+            ghcr.io/${{ steps.repository_owner.outputs.result }}/cartesi-devnet:${{ steps.vars.outputs.date_tag }}
           labels: ${{ steps.devnet_meta.outputs.labels }}
