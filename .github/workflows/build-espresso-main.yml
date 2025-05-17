@@ -50,7 +50,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/${{ github.repository_owner }}/espresso-dev-node
+          images: ghcr.io/${{ github.repository_owner.toLower() }}/espresso-dev-node
 
       - name: Setup espresso date and hash tag
         id: vars
@@ -66,8 +66,8 @@ jobs:
           build-args: |
             TARGETARCH=amd64
           tags: |
-            ghcr.io/${{ github.repository_owner }}/espresso-dev-node:latest
-            ghcr.io/${{ github.repository_owner }}/espresso-dev-node:${{ steps.vars.outputs.date_tag }}
+            ghcr.io/${{ github.repository_owner.toLower() }}/espresso-dev-node:latest
+            ghcr.io/${{ github.repository_owner.toLower() }}/espresso-dev-node:${{ steps.vars.outputs.date_tag }}
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Run docker compose
