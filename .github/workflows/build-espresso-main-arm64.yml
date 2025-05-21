@@ -1,4 +1,4 @@
-name: Build Espresso dev node
+name: Build Espresso dev node arm64
 
 on:
   push:
