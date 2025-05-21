@@ -22,13 +22,13 @@ services:
       - ./dump:/dump
 
   espresso-dev-node:
-    image: ghcr.io/calindra/espresso-dev-node:latest
+    image: ghcr.io/calindra/espresso-dev-node:latest-linux-arm64
     ports:
       - 24000:24000
       - 23000:23000
       - 20000:20000
     env_file:
-      - "${ESPRESSO_ENV_FILE:-./espresso-dev-node/espresso-skip.env}"
+      - "${ESPRESSO_ENV_FILE:-./espresso-dev-node/espresso.env}"
     environment:
       - ESPRESSO_BUILDER_PORT=23000
       - ESPRESSO_DEPLOYER_ACCOUNT_INDEX
